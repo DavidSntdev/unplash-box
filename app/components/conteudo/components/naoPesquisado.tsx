@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 interface NaoPesquisadoProps {
@@ -15,19 +16,21 @@ export default function NaoPesquisado(props: NaoPesquisadoProps) {
           Search high-resolution images from Unsplash
         </p>
       </div>
-      <Input
-        type="text"
-        placeholder="Enter your keywords..."
-        value={props.query}
-        onChange={props.handleInputChange}
-        className="py-6"
-      />
-      <button
-        onClick={props.handleSearch}
-        className="px-6 py-2 bg-blue-500 text-white rounded"
-      >
-        Search
-      </button>
+      <div className="flex gap-2 h-full w-full">
+        <Input
+          type="text"
+          placeholder="Enter your keywords..."
+          value={props.query}
+          onChange={props.handleInputChange}
+          className="h-12"
+        />
+        <Button
+          onClick={props.handleSearch}
+          className="bg-blue-500 hover:bg-blue-500/70 h-12 text-white rounded"
+        >
+          Search
+        </Button>
+      </div>
     </div>
   );
 }
