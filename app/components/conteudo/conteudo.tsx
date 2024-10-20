@@ -1,10 +1,10 @@
 "use client";
-import { Input } from "@/components/ui/input";
 import ConteudoLayout from "../layouts/conteudoLayout";
 import { useState } from "react";
 import axios from "axios";
 import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
-import Image from "next/image";
+import NaoPesquisado from "./components/naoPesquisado";
+import Pesquisado from "./components/pesquisado";
 
 export default function Conteudo() {
   const [pesquisa, setPesquisa] = useState(false);
@@ -47,56 +47,18 @@ export default function Conteudo() {
   return (
     <ConteudoLayout className={`${bgStyle} flex items-center justify-center`}>
       {!pesquisa && (
-        <div className="flex flex-col items-center w-[500px] gap-5 mb-32">
-          <div className="flex flex-col items-center gap-3">
-            <h1 className="text-4xl font-bold text-azulEscuro">Search</h1>
-            <p className="text-azulEscuro">
-              Search high-resolution images from Unsplash
-            </p>
-          </div>
-          <Input
-            type="text"
-            placeholder="Enter your keywords..."
-            value={query}
-            onChange={handleInputChange}
-            className="py-6"
-          />
-          <button
-            onClick={handleSearch}
-            className="px-6 py-2 bg-blue-500 text-white rounded"
-          >
-            Search
-          </button>
-        </div>
+        <NaoPesquisado
+          query={query}
+          handleInputChange={handleInputChange}
+          handleSearch={handleSearch}
+        />
       )}
       {pesquisa && (
-        <div className="flex flex-col place-self-start py-10 gap-5 w-[85%] md:w-[600px]">
-          <Input
-            type="text"
-            placeholder="Enter your keywords..."
-            value={query}
-            onChange={handleInputChange}
-            className="py-6 bg-white"
-          />
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {imagens.length > 0 ? (
-              imagens.map((img) => (
-                <div key={img.id} className="flex flex-col items-center">
-                  <Image
-                    width={300}
-                    height={300}
-                    src={img.urls.small}
-                    alt={img.alt_description || ""}
-                    className="w-full h-auto"
-                  />
-                  <p>{img.description || img.alt_description}</p>
-                </div>
-              ))
-            ) : (
-              <p>No images found</p>
-            )}
-          </div>
-        </div>
+        <Pesquisado
+          query={query}
+          handleInputChange={handleInputChange}
+          imagens={imagens}
+        />
       )}
     </ConteudoLayout>
   );
