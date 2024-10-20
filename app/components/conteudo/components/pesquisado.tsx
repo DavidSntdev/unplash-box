@@ -10,26 +10,32 @@ interface PesquisadoProps {
 
 export default function Pesquisado(props: PesquisadoProps) {
   return (
-    <div className="flex flex-col place-self-start py-10 gap-5 w-[85%] md:w-[600px]">
+    <div className="flex flex-col place-self-start py-10 gap-5 w-full">
       <Input
         type="text"
         placeholder="Enter your keywords..."
         value={props.query}
         onChange={props.handleInputChange}
-        className="py-6 bg-white"
+        className="py-6 bg-white w-[85%] md:w-[600px] mx-auto"
       />
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full p-5 sm:p-10">
         {props.imagens.length > 0 ? (
           props.imagens.map((img) => (
-            <div key={img.id} className="flex flex-col items-center">
+            <div
+              key={img.id}
+              className="relative w-full"
+              style={{
+                gridRowEnd: `span ${Math.ceil(img.height / img.width)}`,
+              }}
+            >
               <Image
-                width={300}
-                height={300}
                 src={img.urls.small}
                 alt={img.alt_description || ""}
-                className="w-full h-auto"
+                layout="responsive"
+                width={img.width}
+                height={img.height}
+                className="rounded-md object-cover"
               />
-              <p>{img.description || img.alt_description}</p>
             </div>
           ))
         ) : (
