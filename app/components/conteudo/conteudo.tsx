@@ -5,6 +5,7 @@ import axios from "axios";
 import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
 import NaoPesquisado from "./components/naoPesquisado";
 import Pesquisado from "./components/pesquisado";
+import getBgStyle from "@/app/utils/constants/bgStyle";
 
 export default function Conteudo() {
   const [pesquisa, setPesquisa] = useState(false);
@@ -39,13 +40,10 @@ export default function Conteudo() {
     }
   };
 
-  let bgStyle = "";
-  bgStyle = pesquisa
-    ? "bg-[url('/images/gradiend-bg.svg')] bg-auto bg-no-repeat bg-top"
-    : "bg-[url('/images/hero-image.png')] bg-auto lg:bg-contain bg-no-repeat bg-center";
-
   return (
-    <ConteudoLayout className={`${bgStyle} flex items-center justify-center`}>
+    <ConteudoLayout
+      className={`${getBgStyle(pesquisa)} flex items-center justify-center`}
+    >
       {!pesquisa && (
         <NaoPesquisado
           query={query}
