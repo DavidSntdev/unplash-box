@@ -1,5 +1,5 @@
 "use client";
-import { getButtonStyle } from "@/app/utils/constants/getButtonStyle";
+import { getButtonStyle } from "@/app/utils/functions/getButtonStyle";
 import { links } from "@/app/utils/constants/links";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";

@@ -5,7 +5,7 @@ import axios from "axios";
 import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
 import NaoPesquisado from "./components/naoPesquisado";
 import Pesquisado from "./components/pesquisado";
-import getBgStyle from "@/app/utils/constants/bgStyle";
+import getBgStyle from "@/app/utils/functions/getBgStyle";
 
 export default function Conteudo() {
   const [pesquisa, setPesquisa] = useState(false);
