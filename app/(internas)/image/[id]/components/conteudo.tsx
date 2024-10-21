@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
 import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { buttonStyle } from "@/app/utils/constants/buttonImage";
 
 interface ConteudoImageProps {
   id: string;
@@ -36,26 +39,30 @@ export default function ConteudoImage({ id }: ConteudoImageProps) {
   }
 
   return (
-    <div className="flex flex-col items-center py-10">
-      <h1 className="text-2xl font-bold mb-5">
-        {imageData.alt_description || "Sem descrição"}
-      </h1>
+    <div className="flex flex-col lg:flex-row max-w-7xl justify-center mx-auto p-10 sm:py-14 lg:p-14 md:items-center lg:items-start gap-10">
       <Image
         width={500}
         height={500}
         src={imageData.urls.full}
         alt={imageData.alt_description || ""}
-        className="w-full max-w-4xl rounded-lg shadow-lg"
+        className="w-full sm:w-[600px] lg:w-1/2 rounded-md shadow-lg"
       />
-      <p className="mt-5 text-gray-600">Fotógrafo: {imageData.user.name}</p>
-      <a
-        href={imageData.links.html}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-3 text-blue-600"
-      >
-        Ver no Unsplash
-      </a>
+      <div className="flex flex-col gap-5 w-full sm:w-[600px] lg:w-1/2 ">
+        <div className="flex gap-2 items-center">
+          <Avatar>
+            <AvatarImage src={imageData.user.profile_image.large} />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <span className="text-azulEscuro text-sm">{imageData.user.name}</span>
+        </div>
+        <span className="text-cinzaEscuro font-normal text-xs">
+          {imageData.created_at}
+        </span>
+        <div className="flex gap-2">
+          <Button className={buttonStyle}>Add to collection</Button>
+          <Button className={buttonStyle}>Download</Button>
+        </div>
+      </div>
     </div>
   );
 }
