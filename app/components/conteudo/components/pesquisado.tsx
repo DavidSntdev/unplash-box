@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
@@ -10,6 +11,12 @@ interface PesquisadoProps {
 }
 
 export default function Pesquisado(props: PesquisadoProps) {
+  const router = useRouter();
+
+  const handleImageClick = (id: string) => {
+    router.push(`/image/${id}`);
+  };
+
   return (
     <div className="flex flex-col place-self-start py-10 gap-5 w-full">
       <div className="relative w-full md:w-[600px] mx-auto">
@@ -38,6 +45,7 @@ export default function Pesquisado(props: PesquisadoProps) {
               style={{
                 gridRowEnd: `span ${Math.ceil(img.height / img.width)}`,
               }}
+              onClick={() => handleImageClick(img.id)}
             >
               <Image
                 src={img.urls.small}
