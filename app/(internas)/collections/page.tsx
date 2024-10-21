@@ -5,8 +5,10 @@ import ConteudoCollection from "./components/conteudo";
 export default function Collections() {
   return (
     <div className="flex flex-col min-h-screen max-h-full justify-between">
-      <Header />
-      <ConteudoCollection />
+      <div>
+        <Header />
+        <ConteudoCollection />
+      </div>
       <Footer />
     </div>
   );

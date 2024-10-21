@@ -33,9 +33,17 @@ export default function ConteudoCollection() {
   };
 
   return (
-    <div className="max-w-7xl flex flex-col h-full mx-auto py-10">
+    <div className="max-w-7xl flex flex-col h-full mx-auto py-10 bg-white">
       <div className="flex flex-col gap-3 mx-auto px-20">
-        <h1 className="text-center text-4xl">Collection</h1>
+        <h1
+          className="text-center text-4xl font-semibold py-2 px-4 rounded-md bg-[url('/images/gradiend-bg.svg')]  from-transparent to-transparent bg-cover bg-center text-transparent"
+          style={{
+            WebkitBackgroundClip: "text",
+          }}
+        >
+          Collections
+        </h1>
+
         <p className="text-center">
           Explore these collections of beautiful images.
         </p>
