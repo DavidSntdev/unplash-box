@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import ConteudoLayout from "@/app/components/layouts/conteudoLayout";
+import { textCollection } from "@/app/utils/constants/textCollection";
 
 interface Collection {
   id: number;
@@ -33,13 +35,11 @@ export default function ConteudoCollection() {
   };
 
   return (
-    <div className="max-w-7xl flex flex-col h-full mx-auto py-10 bg-white">
+    <ConteudoLayout className="py-10">
       <div className="flex flex-col gap-3 mx-auto px-20">
         <h1
-          className="text-center text-4xl font-semibold py-2 px-4 rounded-md bg-[url('/images/gradiend-bg.svg')]  from-transparent to-transparent bg-cover bg-center text-transparent"
-          style={{
-            WebkitBackgroundClip: "text",
-          }}
+          className={`text-center text-4xl font-semibold py-2 px-4 rounded-md ${textCollection}`}
+          style={{ backgroundSize: "20% 20%" }}
         >
           Collections
         </h1>
@@ -88,6 +88,6 @@ export default function ConteudoCollection() {
           </div>
         ))}
       </div>
-    </div>
+    </ConteudoLayout>
   );
 }
