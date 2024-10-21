@@ -55,6 +55,7 @@ export default function Conteudo() {
         <Pesquisado
           query={query}
           handleInputChange={handleInputChange}
+          handleSearch={handleSearch}
           imagens={imagens}
         />
       )}
