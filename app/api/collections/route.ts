@@ -1,12 +1,7 @@
+import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
 import { NextResponse } from "next/server";
 
-interface Collection {
-  id: number;
-  title: string;
-  images: string[];
-}
-
-export const collections: Collection[] = [
+export const collections: unplashCollection[] = [
   { id: 1, title: "Halloween", images: [] },
   { id: 2, title: "Cyber Spikes", images: [] },
   { id: 3, title: "Fall Wallpapers", images: [] },
@@ -23,7 +18,7 @@ export async function POST(request: Request) {
   const body = await request.json();
   const { title } = body;
 
-  const newCollection: Collection = {
+  const newCollection: unplashCollection = {
     id: generateNewId(),
     title: title,
     images: [],
