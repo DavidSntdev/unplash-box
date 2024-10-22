@@ -10,6 +10,9 @@ import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
 export default function ConteudoCollection() {
   const [collections, setCollections] = useState<unplashCollection[]>([]);
   const [newCollectionTitle, setNewCollectionTitle] = useState<string>("");
+  const [expandedCollectionId, setExpandedCollectionId] = useState<
+    number | null
+  >(null);
 
   const fetchCollections = async () => {
     try {
@@ -46,6 +49,10 @@ export default function ConteudoCollection() {
     }
   };
 
+  const toggleCollection = (id: number) => {
+    setExpandedCollectionId((prevId) => (prevId === id ? null : id));
+  };
+
   useEffect(() => {
     fetchCollections();
   }, []);
@@ -80,27 +87,35 @@ export default function ConteudoCollection() {
           Add Collection
         </Button>
       </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full gap-10 py-10 px-20">
         {collections.map((collection) => (
           <div key={collection.id} className="flex flex-col gap-1">
-            <h2 className="text-lg font-bold">{collection.title}</h2>
-            <div className="grid grid-cols-2 gap-2">
-              {collection.images.length > 0 ? (
-                collection.images.map((imageUrl, index) => (
-                  <Image
-                    key={index}
-                    src={imageUrl}
-                    alt={`Image in ${collection.title}`}
-                    className="w-full h-auto object-cover"
-                    width={300}
-                    height={300}
-                    unoptimized={true}
-                  />
-                ))
-              ) : (
-                <p>No images added yet</p>
-              )}
-            </div>
+            <h2
+              className="text-lg font-bold cursor-pointer"
+              onClick={() => toggleCollection(collection.id)}
+            >
+              {collection.title}
+            </h2>
+            {expandedCollectionId === collection.id && (
+              <div className="grid grid-cols-2 gap-2">
+                {collection.images.length > 0 ? (
+                  collection.images.map((imageUrl, index) => (
+                    <Image
+                      key={index}
+                      src={imageUrl}
+                      alt={`Image in ${collection.title}`}
+                      className="w-full h-auto object-cover"
+                      width={300}
+                      height={300}
+                      unoptimized={true}
+                    />
+                  ))
+                ) : (
+                  <p>No images added yet</p>
+                )}
+              </div>
+            )}
           </div>
         ))}
       </div>
