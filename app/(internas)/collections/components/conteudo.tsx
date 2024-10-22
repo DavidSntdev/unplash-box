@@ -1,38 +1,54 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ConteudoLayout from "@/app/components/layouts/conteudoLayout";
 import { textCollection } from "@/app/utils/constants/textCollection";
-
-interface Collection {
-  id: number;
-  title: string;
-  images: string[];
-}
+import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
 
 export default function ConteudoCollection() {
-  const [collections, setCollections] = useState<Collection[]>([
-    { id: 1, title: "Halloween", images: [] },
-    { id: 2, title: "Cyber Spikes", images: [] },
-    { id: 3, title: "Fall Wallpapers", images: [] },
-  ]);
-
+  const [collections, setCollections] = useState<unplashCollection[]>([]);
   const [newCollectionTitle, setNewCollectionTitle] = useState<string>("");
 
-  const addCollection = () => {
+  const fetchCollections = async () => {
+    try {
+      const response = await fetch("/api/collections", {
+        method: "GET",
+      });
+      const data = await response.json();
+      setCollections(data);
+    } catch (error) {
+      console.error("Erro ao buscar coleções", error);
+    }
+  };
+
+  const addCollection = async () => {
     if (newCollectionTitle.trim() === "") return;
 
-    const newCollection: Collection = {
-      id: collections.length + 1,
-      title: newCollectionTitle,
-      images: [],
-    };
+    try {
+      const response = await fetch("/api/collections", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: newCollectionTitle }),
+      });
 
-    setCollections((prevCollections) => [...prevCollections, newCollection]);
-    setNewCollectionTitle("");
+      if (response.ok) {
+        const newCollection = await response.json();
+        setCollections((prevCollections) => [
+          ...prevCollections,
+          newCollection,
+        ]);
+        setNewCollectionTitle("");
+      }
+    } catch (error) {
+      console.error("Erro ao adicionar coleção", error);
+    }
   };
+
+  useEffect(() => {
+    fetchCollections();
+  }, []);
 
   return (
     <ConteudoLayout className="py-10">
