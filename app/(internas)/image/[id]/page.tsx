@@ -1,6 +1,6 @@
 import Footer from "@/app/components/footer/footer";
 import Header from "@/app/components/header/header";
-import ConteudoImage from "./components/conteudo";
+import ConteudoImage from "./conteudo";
 
 export default function ImagePage({ params }: { params: { id: string } }) {
   const { id } = params;
