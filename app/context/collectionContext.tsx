@@ -12,7 +12,7 @@ const ImageCollectionContext = createContext<CollectionContextType | undefined>(
   undefined
 );
 
-export const ImageCollectionProvider: React.FC<{
+export const CollectionProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const [collections, setCollections] = useState<unplashCollection[]>([]);

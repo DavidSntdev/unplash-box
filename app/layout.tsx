@@ -1,4 +1,4 @@
-import { ImageCollectionProvider } from "./context/collectionContext";
+import { CollectionProvider } from "./context/collectionContext";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={`antialiased bg-white`}>
-        <ImageCollectionProvider>{children}</ImageCollectionProvider>
+        <CollectionProvider>{children}</CollectionProvider>
       </body>
     </html>
   );
