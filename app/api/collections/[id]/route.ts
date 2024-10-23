@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { collections } from "../route";
+import { collections, saveToLocalStorage } from "../route";
 
 export async function PUT(
   request: Request,
@@ -19,5 +19,6 @@ export async function PUT(
   }
 
   collection.title = title;
+  saveToLocalStorage();
   return NextResponse.json(collection);
 }
