@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { collections, saveToLocalStorage } from "../../route";
+import { collections } from "../../route";
 
 export async function POST(
   request: Request,
@@ -19,7 +19,6 @@ export async function POST(
   }
 
   collection.images.push(imageUrl);
-  saveToLocalStorage();
   return NextResponse.json(collection);
 }
 
@@ -41,6 +40,5 @@ export async function DELETE(
   }
 
   collection.images = collection.images.filter((image) => image !== imageUrl);
-  saveToLocalStorage(); 
   return NextResponse.json(collection);
 }
