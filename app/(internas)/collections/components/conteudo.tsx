@@ -1,61 +1,23 @@
+// src/app/conteudoCollection.tsx
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ConteudoLayout from "@/app/components/layouts/conteudoLayout";
 import { textCollection } from "@/app/utils/constants/textCollection";
-import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
+import { useImageCollection } from "@/app/context/collectionContext";
 
 export default function ConteudoCollection() {
-  const [collections, setCollections] = useState<unplashCollection[]>([]);
+  const { collections, addCollection } = useImageCollection();
   const [newCollectionTitle, setNewCollectionTitle] = useState<string>("");
-  const [expandedCollectionId, setExpandedCollectionId] = useState<
-    number | null
-  >(null);
 
-  const fetchCollections = async () => {
-    try {
-      const response = await fetch("/api/collections", {
-        method: "GET",
-      });
-      const data = await response.json();
-      setCollections(data);
-    } catch (error) {
-      console.error("Erro ao buscar coleções", error);
+  const handleAddCollection = () => {
+    if (newCollectionTitle.trim()) {
+      addCollection(newCollectionTitle);
+      setNewCollectionTitle("");
     }
   };
-
-  const addCollection = async () => {
-    if (newCollectionTitle.trim() === "") return;
-
-    try {
-      const response = await fetch("/api/collections", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title: newCollectionTitle }),
-      });
-
-      if (response.ok) {
-        const newCollection = await response.json();
-        setCollections((prevCollections) => [
-          ...prevCollections,
-          newCollection,
-        ]);
-        setNewCollectionTitle("");
-      }
-    } catch (error) {
-      console.error("Erro ao adicionar coleção", error);
-    }
-  };
-
-  const toggleCollection = (id: number) => {
-    setExpandedCollectionId((prevId) => (prevId === id ? null : id));
-  };
-
-  useEffect(() => {
-    fetchCollections();
-  }, []);
 
   return (
     <ConteudoLayout className="py-10">
@@ -81,7 +43,7 @@ export default function ConteudoCollection() {
           className="border border-gray-300 rounded-md px-4 py-2"
         />
         <Button
-          onClick={addCollection}
+          onClick={handleAddCollection}
           className="bg-blue-500 hover:bg-blue-500/70 text-white px-4 py-2 rounded-md"
         >
           Add Collection
@@ -91,31 +53,26 @@ export default function ConteudoCollection() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full gap-10 py-10 px-20">
         {collections.map((collection) => (
           <div key={collection.id} className="flex flex-col gap-1">
-            <h2
-              className="text-lg font-bold cursor-pointer"
-              onClick={() => toggleCollection(collection.id)}
-            >
+            <h2 className="text-lg font-bold cursor-pointer">
               {collection.title}
             </h2>
-            {expandedCollectionId === collection.id && (
-              <div className="grid grid-cols-2 gap-2">
-                {collection.images.length > 0 ? (
-                  collection.images.map((imageUrl, index) => (
-                    <Image
-                      key={index}
-                      src={imageUrl}
-                      alt={`Image in ${collection.title}`}
-                      className="w-full h-auto object-cover"
-                      width={300}
-                      height={300}
-                      unoptimized={true}
-                    />
-                  ))
-                ) : (
-                  <p>No images added yet</p>
-                )}
-              </div>
-            )}
+            <div className="grid grid-cols-2 gap-2">
+              {collection.images.length > 0 ? (
+                collection.images.map((imageUrl, index) => (
+                  <Image
+                    key={index}
+                    src={imageUrl}
+                    alt={`Image in ${collection.title}`}
+                    className="w-full h-auto object-cover"
+                    width={300}
+                    height={300}
+                    unoptimized={true}
+                  />
+                ))
+              ) : (
+                <p>No images added yet</p>
+              )}
+            </div>
           </div>
         ))}
       </div>

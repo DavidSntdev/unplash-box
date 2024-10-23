@@ -1,8 +1,9 @@
+// src/app/conteudoImage.tsx
 "use client";
+import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
+import { useImageCollection } from "@/app/context/collectionContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
-import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
 import HeaderImage from "./components/header";
 import Imagem from "./components/imagem";
 import MostrarImagem from "./components/mostrarImagem";
@@ -10,9 +11,8 @@ import ImageCollections from "./components/imageCollections";
 
 export default function ConteudoImage({ id }: { id: string }) {
   const [imageData, setImageData] = useState<UnsplashImage | null>(null);
-  const [collections, setCollections] = useState<unplashCollection[]>([]);
   const [showAddCollection, setShowAddCollection] = useState<boolean>(false);
-  const [imageCollections, setImageCollections] = useState<string[]>([]);
+  const { collections, addImageToCollection } = useImageCollection();
 
   useEffect(() => {
     const fetchImage = async () => {
@@ -34,48 +34,9 @@ export default function ConteudoImage({ id }: { id: string }) {
     fetchImage();
   }, [id]);
 
-  useEffect(() => {
-    const fetchCollections = async () => {
-      try {
-        const response = await axios.get("/api/collections");
-        setCollections(response.data);
-
-        const collectionsWithImage = response.data
-          .filter((collection: unplashCollection) =>
-            imageData?.urls.full
-              ? collection.images.includes(imageData.urls.full)
-              : false
-          )
-          .map((collection: unplashCollection) => collection.title);
-
-        setImageCollections(collectionsWithImage);
-      } catch (error) {
-        console.error("Erro ao buscar coleções", error);
-      }
-    };
-
-    fetchCollections();
-  }, [imageData]);
-  const addImageToCollection = async (collectionId: number) => {
-    if (!imageData) return;
-
-    const collection = collections.find((col) => col.id === collectionId);
-
-    try {
-      const response = await axios.post(
-        `/api/collections/${collectionId}/images`,
-        {
-          imageUrl: imageData.urls.full,
-        }
-      );
-
-      if (response.status === 200) {
-        if (collection?.title) {
-          setImageCollections((prev) => [...prev, collection.title]);
-        }
-      }
-    } catch (error) {
-      console.error("Erro ao adicionar imagem à coleção", error);
+  const handleAddImageToCollection = (collectionId: number) => {
+    if (imageData) {
+      addImageToCollection(collectionId, imageData.urls.full);
     }
   };
 
@@ -92,12 +53,14 @@ export default function ConteudoImage({ id }: { id: string }) {
           setShowAddCollection={setShowAddCollection}
         />
         <MostrarImagem
+          addImageToCollection={handleAddImageToCollection}
+          collections={collections}
           showAddCollection={showAddCollection}
           setShowAddCollection={setShowAddCollection}
-          addImageToCollection={addImageToCollection}
-          collections={collections}
         />
-        <ImageCollections imageCollections={imageCollections} />
+        <ImageCollections
+          imageCollections={collections.map((col) => col.title)}
+        />
       </div>
     </div>
   );
