@@ -1,14 +1,14 @@
 import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
 import { Button } from "@/components/ui/button";
 
-type mostrarImagemProps = {
+type ShowImagemProps = {
   showAddCollection: boolean;
   setShowAddCollection: (showAddCollection: boolean) => void;
   addImageToCollection: (collectionId: number) => void;
   collections: unplashCollection[];
 };
 
-export default function MostrarImagem(props: mostrarImagemProps) {
+export default function ShowCollection(props: ShowImagemProps) {
   return (
     props.showAddCollection && (
       <div className="flex flex-col gap-2">

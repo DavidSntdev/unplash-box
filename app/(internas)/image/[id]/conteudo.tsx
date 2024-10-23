@@ -1,4 +1,3 @@
-// src/app/conteudoImage.tsx
 "use client";
 import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
 import { useImageCollection } from "@/app/context/collectionContext";
@@ -6,8 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import HeaderImage from "./components/header";
 import Imagem from "./components/imagem";
-import MostrarImagem from "./components/mostrarImagem";
 import ImageCollections from "./components/imageCollections";
+import ShowCollection from "./components/showCollection";
 
 export default function ConteudoImage({ id }: { id: string }) {
   const [imageData, setImageData] = useState<UnsplashImage | null>(null);
@@ -52,7 +51,7 @@ export default function ConteudoImage({ id }: { id: string }) {
           imageData={imageData}
           setShowAddCollection={setShowAddCollection}
         />
-        <MostrarImagem
+        <ShowCollection
           addImageToCollection={handleAddImageToCollection}
           collections={collections}
           showAddCollection={showAddCollection}
