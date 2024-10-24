@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { useImageCollection } from "@/app/context/collectionContext";
 
