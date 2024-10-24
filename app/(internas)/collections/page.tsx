@@ -1,6 +1,6 @@
 import Footer from "@/app/components/footer/footer";
 import Header from "@/app/components/header/header";
-import ConteudoCollection from "./components/conteudo";
+import ConteudoCollection from "./conteudo";
 
 export default function CollectionsPage() {
   return (
