@@ -1,7 +1,7 @@
-import { buttonStyle } from "@/app/utils/constants/buttonImage";
+import ButtonWithIcon from "@/app/components/common/buttonWithIcon";
+import { formatarData } from "@/app/utils/functions/getFormattedData";
 import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 
 type HeaderImageProps = {
   imageData: UnsplashImage;
@@ -9,27 +9,32 @@ type HeaderImageProps = {
 };
 
 export default function HeaderImage(props: HeaderImageProps) {
+  const criadorImagem = props.imageData.user.profile_image.large;
+  const criadorNome = props.imageData.user.name;
+  const dataCriacao = props.imageData.created_at;
+
   return (
     <>
       <div className="flex gap-2 items-center">
         <Avatar>
-          <AvatarImage src={props.imageData.user.profile_image.large} />
+          <AvatarImage src={criadorImagem} />
         </Avatar>
-        <span className="text-azulEscuro text-sm">
-          {props.imageData.user.name}
-        </span>
+        <span className="text-azulEscuro text-sm">{criadorNome}</span>
       </div>
       <span className="text-cinzaEscuro font-normal text-xs">
-        {props.imageData.created_at}
+        Published on {formatarData(dataCriacao)}
       </span>
       <div className="flex gap-2">
-        <Button
-          className={buttonStyle}
+        <ButtonWithIcon
+          icon="/icons/Plus.svg"
+          text="Add to collection"
           onClick={() => props.setShowAddCollection(true)}
-        >
-          Add to collections
-        </Button>
-        <Button className={buttonStyle}>Download</Button>
+        />
+        <ButtonWithIcon
+          icon="/icons/download.svg"
+          text="Download"
+          onClick={() => {}}
+        />
       </div>
     </>
   );
