@@ -1,5 +1,7 @@
 import ButtonWithIcon from "@/app/components/common/buttonWithIcon";
 import { formatarData } from "@/app/utils/functions/getFormattedData";
+import { getInfosImage } from "@/app/utils/functions/getInfosImage";
+import { handleDownloadLink } from "@/app/utils/functions/handleDowloadLink";
 import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
@@ -9,9 +11,8 @@ type HeaderImageProps = {
 };
 
 export default function HeaderImage(props: HeaderImageProps) {
-  const criadorImagem = props.imageData.user.profile_image.large;
-  const criadorNome = props.imageData.user.name;
-  const dataCriacao = props.imageData.created_at;
+  const { criadorImagem, criadorNome, dataCriacao, imageDownload } =
+    getInfosImage(props.imageData);
 
   return (
     <>
@@ -33,7 +34,7 @@ export default function HeaderImage(props: HeaderImageProps) {
         <ButtonWithIcon
           icon="/icons/download.svg"
           text="Download"
-          onClick={() => {}}
+          onClick={() => handleDownloadLink(imageDownload)}
         />
       </div>
     </>
