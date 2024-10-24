@@ -55,10 +55,11 @@ export default function ConteudoImage({ id }: { id: string }) {
           addImageToCollection={handleAddImageToCollection}
           collections={collections}
           showAddCollection={showAddCollection}
-          setShowAddCollection={setShowAddCollection}
+          imageUrl={imageData.urls.full}
         />
         <ImageCollections
-          imageCollections={collections.map((col) => col.title)}
+          collections={collections}
+          imageUrl={imageData.urls.full}
         />
       </div>
     </div>

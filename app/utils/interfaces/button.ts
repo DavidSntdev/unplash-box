@@ -1,5 +1,5 @@
 export interface ButtonInterface {
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
   text: string;
 }

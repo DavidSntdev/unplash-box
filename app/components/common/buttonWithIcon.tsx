@@ -9,7 +9,7 @@ interface ButtonWithIconProps extends ButtonInterface {
 
 export default function ButtonWithIcon(props: ButtonWithIconProps) {
   return (
-    <Button className={`${buttonStyle} flex gap-2`}>
+    <Button className={`${buttonStyle} flex gap-2`} onClick={props.onClick}>
       <Image width={20} height={20} src={props.icon} alt={props.text} />
       <span>{props.text}</span>
     </Button>
