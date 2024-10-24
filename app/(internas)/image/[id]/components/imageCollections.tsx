@@ -1,13 +1,22 @@
-export default function ImageCollections(props: {
-  imageCollections: string[];
-}) {
+import { filterCollections } from "@/app/utils/functions/filterCollections";
+import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
+
+type ImageCollections = {
+  collections: unplashCollection[];
+  imageUrl: string;
+};
+
+export default function ImageCollections(props: ImageCollections) {
+  const { filteredCollectionsInside, hasFilteredCollectionsInside } =
+    filterCollections(props.collections, props.imageUrl);
+
   return (
-    props.imageCollections.length > 0 && (
+    hasFilteredCollectionsInside && (
       <div className="flex flex-col gap-2">
         <h3 className="text-lg text-azulEscuro font-semibold">Coleções</h3>
-        {props.imageCollections.map((collectionTitle, index) => (
+        {filteredCollectionsInside.map((collectionTitle, index) => (
           <span key={index} className="text-sm text-gray-600">
-            {collectionTitle}
+            {collectionTitle.title}
           </span>
         ))}
       </div>

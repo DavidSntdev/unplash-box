@@ -1,20 +1,28 @@
+import { filterCollections } from "@/app/utils/functions/filterCollections";
 import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
 import { Button } from "@/components/ui/button";
 
-type ShowImagemProps = {
+type ShowCollectionProps = {
   showAddCollection: boolean;
-  setShowAddCollection: (showAddCollection: boolean) => void;
   addImageToCollection: (collectionId: number) => void;
   collections: unplashCollection[];
+  imageUrl: string;
 };
 
-export default function ShowCollection(props: ShowImagemProps) {
+export default function ShowCollection(props: ShowCollectionProps) {
+  const { hasFilteredCollectionOutside, filteredCollectionsOutside } =
+    filterCollections(
+      props.collections,
+      props.imageUrl,
+      props.showAddCollection
+    );
+
   return (
-    props.showAddCollection && (
+    hasFilteredCollectionOutside && (
       <div className="flex flex-col gap-2">
-        <h3 className="text-lg font-semibold">Add to Collection:</h3>
+        <h1 className="text-lg font-semibold">Add to Collection:</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {props.collections.map((collection) => (
+          {filteredCollectionsOutside.map((collection) => (
             <Button
               key={collection.id}
               className="bg-gray-200 hover:bg-gray-300 text-black"
