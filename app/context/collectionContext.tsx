@@ -4,9 +4,9 @@ import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
 
 interface CollectionContextType {
   collections: unplashCollection[];
-  addCollection: (title: string) => void;
+  addCollection: (title: string) => { error?: string };
   addImageToCollection: (collectionId: number, imageUrl: string) => void;
-  removeImageFromCollection: (collectionId: number, imageUrl: string) => void; 
+  removeImageFromCollection: (collectionId: number, imageUrl: string) => void;
 }
 
 const ImageCollectionContext = createContext<CollectionContextType | undefined>(
@@ -30,12 +30,23 @@ export const CollectionProvider: React.FC<{
   }, [collections]);
 
   const addCollection = (title: string) => {
+    const normalizedTitle = title.trim().toLowerCase();
+    const titleExists = collections.some(
+      (collection) => collection.title.toLowerCase() === normalizedTitle
+    );
+
+    if (titleExists) {
+      return { error: "A collection with this title already exists." };
+    }
+
     const newCollection: unplashCollection = {
       id: collections.length ? collections[collections.length - 1].id + 1 : 1,
-      title,
+      title: title.charAt(0).toUpperCase() + title.slice(1).toLowerCase(),
       images: [],
     };
+
     setCollections((prev) => [...prev, newCollection]);
+    return {};
   };
 
   const addImageToCollection = (collectionId: number, imageUrl: string) => {
@@ -73,7 +84,7 @@ export const CollectionProvider: React.FC<{
         addCollection,
         addImageToCollection,
         removeImageFromCollection,
-      }} 
+      }}
     >
       {children}
     </ImageCollectionContext.Provider>
