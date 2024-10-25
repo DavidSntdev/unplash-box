@@ -1,15 +1,18 @@
+import { useImageCollection } from "@/app/context/collectionContext";
 import { filterCollections } from "@/app/utils/functions/filterCollections";
 import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
-import { Button } from "@/components/ui/button";
+import CollectionsList from "./collections/collectionsList";
 
 type ShowCollectionProps = {
   showAddCollection: boolean;
-  addImageToCollection: (collectionId: number) => void;
   collections: unplashCollection[];
   imageUrl: string;
+  setShowAddCollection: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function ShowCollection(props: ShowCollectionProps) {
+  const { addImageToCollection } = useImageCollection();
+
   const { hasFilteredCollectionOutside, filteredCollectionsOutside } =
     filterCollections(
       props.collections,
@@ -17,20 +20,31 @@ export default function ShowCollection(props: ShowCollectionProps) {
       props.showAddCollection
     );
 
+  if (!hasFilteredCollectionOutside) {
+    props.setShowAddCollection(false);
+  }
+
   return (
     hasFilteredCollectionOutside && (
-      <div className="flex flex-col gap-2">
-        <h1 className="text-lg font-semibold">Add to Collection:</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {filteredCollectionsOutside.map((collection) => (
-            <Button
-              key={collection.id}
-              className="bg-gray-200 hover:bg-gray-300 text-black"
-              onClick={() => props.addImageToCollection(collection.id)}
-            >
-              {collection.title}
-            </Button>
-          ))}
+      <div className="items-center justify-center fixed inset-0 flex bg-black/30 z-50">
+        <div className="flex flex-col bg-white p-6 gap-5 rounded-md h-[700px] w-[700px]">
+          <h1 className="text-lg text-azulEscuro font-semibold">
+            Add to Collections
+          </h1>
+          <div className="gap-4 overflow-y-auto max-h-full w-full">
+            {filteredCollectionsOutside.map((collection) => (
+              <CollectionsList
+                key={collection.id}
+                collection={collection}
+                imageUrl={props.imageUrl}
+                text="Add to Collection"
+                icone="/icons/Plus.svg"
+                onClick={() =>
+                  addImageToCollection(collection.id, props.imageUrl)
+                }
+              />
+            ))}
+          </div>
         </div>
       </div>
     )
