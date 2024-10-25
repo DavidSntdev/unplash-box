@@ -17,7 +17,11 @@ export default function ImageCollections(props: ImageCollections) {
         <h3 className="text-xl text-azulEscuro font-semibold">Collections</h3>
         <div className="flex flex-col gap-3">
           {filteredCollectionsInside.map((collection) => (
-            <CollectionsList key={collection.id} collection={collection} />
+            <CollectionsList
+              key={collection.id}
+              collection={collection}
+              imageUrl={props.imageUrl}
+            />
           ))}
         </div>
       </div>

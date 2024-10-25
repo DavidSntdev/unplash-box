@@ -6,6 +6,7 @@ interface CollectionContextType {
   collections: unplashCollection[];
   addCollection: (title: string) => void;
   addImageToCollection: (collectionId: number, imageUrl: string) => void;
+  removeImageFromCollection: (collectionId: number, imageUrl: string) => void; // Nova função
 }
 
 const ImageCollectionContext = createContext<CollectionContextType | undefined>(
@@ -48,9 +49,31 @@ export const CollectionProvider: React.FC<{
     );
   };
 
+  const removeImageFromCollection = (
+    collectionId: number,
+    imageUrl: string
+  ) => {
+    setCollections((prev) =>
+      prev.map((collection) => {
+        if (collection.id === collectionId) {
+          return {
+            ...collection,
+            images: collection.images.filter((img) => img !== imageUrl),
+          };
+        }
+        return collection;
+      })
+    );
+  };
+
   return (
     <ImageCollectionContext.Provider
-      value={{ collections, addCollection, addImageToCollection }}
+      value={{
+        collections,
+        addCollection,
+        addImageToCollection,
+        removeImageFromCollection,
+      }} // Adiciona a nova função aqui
     >
       {children}
     </ImageCollectionContext.Provider>
