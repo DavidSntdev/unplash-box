@@ -1,6 +1,7 @@
 import { filterCollections } from "@/app/utils/functions/filterCollections";
 import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
 import CollectionsList from "./collections/collectionsList";
+import { useImageCollection } from "@/app/context/collectionContext";
 
 type ImageCollections = {
   collections: unplashCollection[];
@@ -8,6 +9,8 @@ type ImageCollections = {
 };
 
 export default function ImageCollections(props: ImageCollections) {
+  const { removeImageFromCollection } = useImageCollection();
+
   const { filteredCollectionsInside, hasFilteredCollectionsInside } =
     filterCollections(props.collections, props.imageUrl);
 
@@ -21,6 +24,11 @@ export default function ImageCollections(props: ImageCollections) {
               key={collection.id}
               collection={collection}
               imageUrl={props.imageUrl}
+              text="Remove"
+              icone="/icons/Remove.svg"
+              onClick={() =>
+                removeImageFromCollection(collection.id, props.imageUrl)
+              }
             />
           ))}
         </div>
