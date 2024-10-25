@@ -1,5 +1,6 @@
 import { filterCollections } from "@/app/utils/functions/filterCollections";
 import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
+import CollectionsList from "./collections/collectionsList";
 
 type ImageCollections = {
   collections: unplashCollection[];
@@ -12,13 +13,13 @@ export default function ImageCollections(props: ImageCollections) {
 
   return (
     hasFilteredCollectionsInside && (
-      <div className="flex flex-col gap-2">
-        <h3 className="text-lg text-azulEscuro font-semibold">Coleções</h3>
-        {filteredCollectionsInside.map((collectionTitle, index) => (
-          <span key={index} className="text-sm text-gray-600">
-            {collectionTitle.title}
-          </span>
-        ))}
+      <div className="flex flex-col mt-4 gap-3">
+        <h3 className="text-xl text-azulEscuro font-semibold">Collections</h3>
+        <div className="flex flex-col gap-3">
+          {filteredCollectionsInside.map((collection) => (
+            <CollectionsList key={collection.id} collection={collection} />
+          ))}
+        </div>
       </div>
     )
   );
