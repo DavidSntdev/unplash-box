@@ -3,12 +3,13 @@ import { useState } from "react";
 import { getInfosCollection } from "@/app/utils/functions/getInfosCollections";
 import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
 import Image from "next/image";
+import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
 
 type CollectionsType = {
   key: number;
   text: string;
   icone: string;
-  imageUrl: string;
+  imageId: UnsplashImage;
   onClick: () => void;
   collection: unplashCollection;
 };
@@ -32,10 +33,10 @@ export default function CollectionsList(props: CollectionsType) {
         {existeImagem && (
           <div className="w-16 h-16 overflow-hidden rounded-md shadow-md">
             <Image
-              width={60}
-              height={60}
+              width={70}
+              height={70}
               alt={titulo}
-              src={imagens[0]}
+              src={imagens[0].urls.full}
               className="object-cover w-full h-full"
             />
           </div>

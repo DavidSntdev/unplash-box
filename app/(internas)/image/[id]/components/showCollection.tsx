@@ -2,11 +2,12 @@ import { useImageCollection } from "@/app/context/collectionContext";
 import { filterCollections } from "@/app/utils/functions/filterCollections";
 import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
 import CollectionsList from "./collections/collectionsList";
+import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
 
 type ShowCollectionProps = {
   showAddCollection: boolean;
   collections: unplashCollection[];
-  imageUrl: string;
+  imageId: UnsplashImage;
   setShowAddCollection: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -16,7 +17,7 @@ export default function ShowCollection(props: ShowCollectionProps) {
   const { hasFilteredCollectionOutside, filteredCollectionsOutside } =
     filterCollections(
       props.collections,
-      props.imageUrl,
+      props.imageId,
       props.showAddCollection
     );
 
@@ -36,11 +37,11 @@ export default function ShowCollection(props: ShowCollectionProps) {
               <CollectionsList
                 key={collection.id}
                 collection={collection}
-                imageUrl={props.imageUrl}
+                imageId={props.imageId}
                 text="Add to Collection"
                 icone="/icons/Plus.svg"
                 onClick={() =>
-                  addImageToCollection(collection.id, props.imageUrl)
+                  addImageToCollection(collection.id, props.imageId)
                 }
               />
             ))}

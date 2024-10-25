@@ -48,13 +48,10 @@ export default function ConteudoImage({ id }: { id: string }) {
         <ShowCollection
           collections={collections}
           showAddCollection={showAddCollection}
-          imageUrl={imageData.urls.full}
+          imageId={imageData}
           setShowAddCollection={setShowAddCollection}
         />
-        <ImageCollections
-          collections={collections}
-          imageUrl={imageData.urls.full}
-        />
+        <ImageCollections collections={collections} imageId={imageData} />
       </div>
     </div>
   );

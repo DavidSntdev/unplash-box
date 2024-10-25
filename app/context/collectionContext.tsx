@@ -1,21 +1,25 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
+import { UnsplashImage } from "../utils/interfaces/unplashimage";
 
 interface CollectionContextType {
   collections: unplashCollection[];
   addCollection: (title: string) => { error?: string };
-  addImageToCollection: (collectionId: number, imageUrl: string) => void;
-  removeImageFromCollection: (collectionId: number, imageUrl: string) => void;
+  addImageToCollection: (collectionId: number, image: UnsplashImage) => void;
+  removeImageFromCollection: (
+    collectionId: number,
+    imageId: UnsplashImage
+  ) => void;
 }
 
 const ImageCollectionContext = createContext<CollectionContextType | undefined>(
   undefined
 );
 
-export const CollectionProvider: React.FC<{
-  children: React.ReactNode;
-}> = ({ children }) => {
+export const CollectionProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [collections, setCollections] = useState<unplashCollection[]>([]);
 
   useEffect(() => {
@@ -49,11 +53,11 @@ export const CollectionProvider: React.FC<{
     return {};
   };
 
-  const addImageToCollection = (collectionId: number, imageUrl: string) => {
+  const addImageToCollection = (collectionId: number, image: UnsplashImage) => {
     setCollections((prev) =>
       prev.map((collection) => {
         if (collection.id === collectionId) {
-          return { ...collection, images: [...collection.images, imageUrl] };
+          return { ...collection, images: [...collection.images, image] };
         }
         return collection;
       })
@@ -62,14 +66,16 @@ export const CollectionProvider: React.FC<{
 
   const removeImageFromCollection = (
     collectionId: number,
-    imageUrl: string
+    imageId: UnsplashImage
   ) => {
     setCollections((prev) =>
       prev.map((collection) => {
         if (collection.id === collectionId) {
           return {
             ...collection,
-            images: collection.images.filter((img) => img !== imageUrl),
+            images: collection.images.filter(
+              (img) => img.id !== imageId.toString()
+            ),
           };
         }
         return collection;

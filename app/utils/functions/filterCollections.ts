@@ -1,8 +1,9 @@
 import { unplashCollection } from "../interfaces/unplashCollection";
+import { UnsplashImage } from "../interfaces/unplashimage";
 
 export const filterCollections = (
   collections: unplashCollection[],
-  imageUrl: string,
+  imagem: UnsplashImage,
   showAddCollection?: boolean
 ): {
   filteredCollectionsInside: unplashCollection[];
@@ -11,11 +12,11 @@ export const filterCollections = (
   hasFilteredCollectionOutside: boolean | undefined;
 } => {
   const filteredCollectionsInside = collections.filter((collection) =>
-    collection.images.includes(imageUrl)
+    collection.images.includes(imagem)
   );
 
   const filteredCollectionsOutside = collections.filter(
-    (collection) => !collection.images.includes(imageUrl)
+    (collection) => !collection.images.includes(imagem)
   );
 
   const hasFilteredCollectionsInside = filteredCollectionsInside.length > 0;

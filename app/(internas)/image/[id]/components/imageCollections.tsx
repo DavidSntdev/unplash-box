@@ -2,17 +2,18 @@ import { filterCollections } from "@/app/utils/functions/filterCollections";
 import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
 import CollectionsList from "./collections/collectionsList";
 import { useImageCollection } from "@/app/context/collectionContext";
+import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
 
 type ImageCollections = {
   collections: unplashCollection[];
-  imageUrl: string;
+  imageId: UnsplashImage;
 };
 
 export default function ImageCollections(props: ImageCollections) {
   const { removeImageFromCollection } = useImageCollection();
 
   const { filteredCollectionsInside, hasFilteredCollectionsInside } =
-    filterCollections(props.collections, props.imageUrl);
+    filterCollections(props.collections, props.imageId);
 
   return (
     hasFilteredCollectionsInside && (
@@ -23,11 +24,11 @@ export default function ImageCollections(props: ImageCollections) {
             <CollectionsList
               key={collection.id}
               collection={collection}
-              imageUrl={props.imageUrl}
+              imageId={props.imageId}
               text="Remove"
               icone="/icons/Remove.svg"
               onClick={() =>
-                removeImageFromCollection(collection.id, props.imageUrl)
+                removeImageFromCollection(collection.id, props.imageId)
               }
             />
           ))}
