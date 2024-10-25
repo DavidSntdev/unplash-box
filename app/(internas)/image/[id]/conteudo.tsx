@@ -11,7 +11,7 @@ import ShowCollection from "./components/showCollection";
 export default function ConteudoImage({ id }: { id: string }) {
   const [imageData, setImageData] = useState<UnsplashImage | null>(null);
   const [showAddCollection, setShowAddCollection] = useState<boolean>(false);
-  const { collections, addImageToCollection } = useImageCollection();
+  const { collections } = useImageCollection();
 
   useEffect(() => {
     const fetchImage = async () => {
@@ -33,12 +33,6 @@ export default function ConteudoImage({ id }: { id: string }) {
     fetchImage();
   }, [id]);
 
-  const handleAddImageToCollection = (collectionId: number) => {
-    if (imageData) {
-      addImageToCollection(collectionId, imageData.urls.full);
-    }
-  };
-
   if (!imageData) {
     return <div className="mx-auto">Carregando...</div>;
   }
@@ -52,10 +46,10 @@ export default function ConteudoImage({ id }: { id: string }) {
           setShowAddCollection={setShowAddCollection}
         />
         <ShowCollection
-          addImageToCollection={handleAddImageToCollection}
           collections={collections}
           showAddCollection={showAddCollection}
           imageUrl={imageData.urls.full}
+          setShowAddCollection={setShowAddCollection}
         />
         <ImageCollections
           collections={collections}

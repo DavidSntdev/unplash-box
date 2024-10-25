@@ -6,5 +6,6 @@ export function getInfosCollection(collection: unplashCollection) {
     titulo: collection.title,
     imagens: collection.images,
     quantidade: collection.images.length,
+    existeImagem: collection.images.length > 0,
   };
 }

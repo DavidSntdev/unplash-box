@@ -6,7 +6,7 @@ interface CollectionContextType {
   collections: unplashCollection[];
   addCollection: (title: string) => void;
   addImageToCollection: (collectionId: number, imageUrl: string) => void;
-  removeImageFromCollection: (collectionId: number, imageUrl: string) => void; // Nova função
+  removeImageFromCollection: (collectionId: number, imageUrl: string) => void; 
 }
 
 const ImageCollectionContext = createContext<CollectionContextType | undefined>(
@@ -73,7 +73,7 @@ export const CollectionProvider: React.FC<{
         addCollection,
         addImageToCollection,
         removeImageFromCollection,
-      }} // Adiciona a nova função aqui
+      }} 
     >
       {children}
     </ImageCollectionContext.Provider>
