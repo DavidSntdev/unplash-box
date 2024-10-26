@@ -1,7 +1,7 @@
 import { getInfosCollection } from "@/app/utils/functions/getInfosCollections";
+import { useRouterPush } from "@/app/utils/functions/useRouterPush";
 import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 export default function CollectionItem({
   collection,
@@ -11,16 +11,13 @@ export default function CollectionItem({
   const { collectionId, titulo, imagens, quantidade, existeImagem } =
     getInfosCollection(collection);
 
-  const router = useRouter();
-  const handleImageClick = (id: string) => {
-    router.push(`/collections/${id}`);
-  };
+  const routerPush = useRouterPush();
 
   return (
     <div
       key={collectionId}
       className="flex flex-col gap-3 mx-auto cursor-pointer"
-      onClick={() => handleImageClick(titulo)}
+      onClick={() => routerPush("/collections/", titulo)}
     >
       {existeImagem && (
         <div className="w-[350px] h-[250px] overflow-hidden rounded-md shadow-md">

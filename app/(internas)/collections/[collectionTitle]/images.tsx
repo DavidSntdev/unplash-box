@@ -1,8 +1,9 @@
 "use client";
-import { getInfosCollection } from "@/app/utils/functions/getInfosCollections";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { getInfosCollection } from "@/app/utils/functions/getInfosCollections";
 import { useImageCollection } from "@/app/context/collectionContext";
+import { useRouterPush } from "@/app/utils/functions/useRouterPush";
+import { getCollection } from "@/app/utils/functions/getCollection";
 
 export default function ImagesCollection({
   collectionTitle,
@@ -10,15 +11,9 @@ export default function ImagesCollection({
   collectionTitle: string;
 }) {
   const { collections } = useImageCollection();
+  const routerPush = useRouterPush();
 
-  const router = useRouter();
-  const handleImageClick = (id: string) => {
-    router.push(`/image/${id}`);
-  };
-
-  const collection = collections.find(
-    (collection) => collection.title === collectionTitle
-  );
+  const collection = getCollection(collections, collectionTitle);
 
   if (!collection) {
     return <div>Collection not found</div>;
@@ -36,7 +31,7 @@ export default function ImagesCollection({
             style={{
               gridRowEnd: `span ${Math.ceil(img.height / img.width)}`,
             }}
-            onClick={() => handleImageClick(img.id)}
+            onClick={() => routerPush("/image/", img.id)}
           >
             <Image
               src={img.urls.small}

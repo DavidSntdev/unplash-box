@@ -10,7 +10,7 @@ export default function ImagePage({
   const { collectionTitle } = params;
 
   return (
-    <div className="flex flex-col min-h-screen max-h-full justify-between">
+    <div className="flex flex-col min-h-screen max-h-full max-w-7xl mx-auto justify-between">
       <div>
         <Header />
         <ImagesCollection collectionTitle={collectionTitle} />
