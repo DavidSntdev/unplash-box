@@ -9,7 +9,7 @@ type props = {
 export default function HeaderSAC({ setShowAddCollection }: props) {
   return (
     <div className="w-full flex justify-between items-center">
-      <h1 className="text-lg text-azulEscuro font-semibold">
+      <h1 className="text-2xl text-azulEscuro font-semibold">
         Add to Collections
       </h1>
       <Button

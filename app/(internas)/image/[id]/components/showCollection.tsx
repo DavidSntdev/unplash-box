@@ -36,7 +36,7 @@ export default function ShowCollection(props: ShowCollectionProps) {
   return (
     hasFilteredCollectionOutside && (
       <div className="items-center justify-center fixed inset-0 flex bg-black/30 z-50">
-        <div className="flex flex-col bg-white p-6 gap-5 rounded-md h-[700px] w-[700px]">
+        <div className="flex flex-col bg-white p-6 gap-6 rounded-md h-[700px] w-[700px]">
           <HeaderSAC setShowAddCollection={props.setShowAddCollection} />
           <SearchSAC pesquisa={pesquisa} setPesquisa={setPesquisa} />
           <CollectionsSAC

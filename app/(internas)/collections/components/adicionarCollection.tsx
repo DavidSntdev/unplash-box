@@ -22,7 +22,7 @@ export default function AdicionarCollection() {
   };
 
   return (
-    <div className="my-6 max-w-xl mx-auto flex flex-col items-center gap-4">
+    <div className="my-6 max-w-xl mx-auto flex items-center gap-4">
       <Input
         type="text"
         placeholder="Enter new collection title"
