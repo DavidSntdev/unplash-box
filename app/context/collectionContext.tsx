@@ -9,7 +9,7 @@ interface CollectionContextType {
   addImageToCollection: (collectionId: number, image: UnsplashImage) => void;
   removeImageFromCollection: (
     collectionId: number,
-    imageId: UnsplashImage
+    image: UnsplashImage
   ) => void;
 }
 
@@ -66,16 +66,14 @@ export const CollectionProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const removeImageFromCollection = (
     collectionId: number,
-    imageId: UnsplashImage
+    image: UnsplashImage
   ) => {
     setCollections((prev) =>
       prev.map((collection) => {
         if (collection.id === collectionId) {
           return {
             ...collection,
-            images: collection.images.filter(
-              (img) => img.id !== imageId.toString()
-            ),
+            images: collection.images.filter((img) => img.id !== image.id),
           };
         }
         return collection;

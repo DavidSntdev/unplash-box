@@ -11,7 +11,8 @@ export default function HeaderCollections() {
       </h1>
 
       <p className="text-center">
-        Explore these collections of beautiful images.
+        Explore the world through collections of beautiful photos free to use
+        under the Unsplash License.
       </p>
     </div>
   );
