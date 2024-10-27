@@ -1,6 +1,6 @@
 import Footer from "@/app/components/footer/footer";
 import Header from "@/app/components/header/header";
-import ImagesCollection from "./images";
+import ConteudoCollectionDetail from "./conteudo";
 
 export default function ImagePage({
   params,
@@ -11,9 +11,9 @@ export default function ImagePage({
 
   return (
     <div className="flex flex-col min-h-screen max-h-full max-w-7xl mx-auto justify-between">
-      <div>
+      <div className="w-full">
         <Header />
-        <ImagesCollection collectionTitle={collectionTitle} />
+        <ConteudoCollectionDetail collectionTitle={collectionTitle} />
       </div>
       <Footer />
     </div>
