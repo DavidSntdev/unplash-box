@@ -14,7 +14,7 @@ export default function Pesquisado(props: PesquisadoProps) {
   const routerPush = useRouterPush();
 
   return (
-    <div className="flex flex-col place-self-start py-10 gap-5 w-full">
+    <div className="flex flex-col place-self-start py-14 gap-5 w-full">
       <div className="relative w-full md:w-[600px] mx-auto">
         <Input
           type="text"
