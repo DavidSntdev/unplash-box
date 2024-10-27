@@ -1,33 +1,14 @@
 "use client";
 import ConteudoLayout from "../layouts/conteudoLayout";
 import { useState } from "react";
-import axios from "axios";
-import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
 import NaoPesquisado from "./components/naoPesquisado";
-import Pesquisado from "./components/pesquisado";
 import getBgStyle from "@/app/utils/functions/getBgStyle";
+import { useRouterPush } from "@/app/utils/functions/useRouterPush";
 
 export default function Conteudo() {
   const [pesquisa, setPesquisa] = useState(false);
   const [query, setQuery] = useState("");
-  const [imagens, setImagens] = useState<UnsplashImage[]>([]);
-
-  const searchUnsplash = async (query: string) => {
-    try {
-      const response = await axios.get(
-        "https://api.unsplash.com/search/photos",
-        {
-          params: { query },
-          headers: {
-            Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`,
-          },
-        }
-      );
-      setImagens(response.data.results);
-    } catch (error) {
-      console.error("Erro ao buscar imagens do Unsplash", error);
-    }
-  };
+  const routerPush = useRouterPush();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -36,7 +17,7 @@ export default function Conteudo() {
   const handleSearch = () => {
     if (query) {
       setPesquisa(true);
-      searchUnsplash(query);
+      routerPush("/search/", query);
     }
   };
 
@@ -49,14 +30,6 @@ export default function Conteudo() {
           query={query}
           handleInputChange={handleInputChange}
           handleSearch={handleSearch}
-        />
-      )}
-      {pesquisa && (
-        <Pesquisado
-          query={query}
-          handleInputChange={handleInputChange}
-          handleSearch={handleSearch}
-          imagens={imagens}
         />
       )}
     </ConteudoLayout>
