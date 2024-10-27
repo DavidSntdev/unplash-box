@@ -1,3 +1,7 @@
+"use client";
+import { getInfosCollection } from "@/app/utils/functions/getInfosCollections";
+import { useImageCollection } from "@/app/context/collectionContext";
+import { getCollection } from "@/app/utils/functions/getCollection";
 import HeaderCollections from "../layouts/headerCollection";
 import ImagesCollection from "./images";
 
@@ -6,13 +10,20 @@ export default function ConteudoCollectionDetail({
 }: {
   collectionTitle: string;
 }) {
+  const { collections } = useImageCollection();
+  const collection = getCollection(collections, collectionTitle);
+  if (!collection) return <div className="mx-auto">Collection not found</div>;
+
+  const { titulo, quantidade } = getInfosCollection(collection);
+
   return (
-    <div className="flex flex-col gap-10 w-full">
+    <div className="flex flex-col my-8 w-full">
       <HeaderCollections
-        text="Collections"
-        description="Explore the world through collections of beautiful photos free to use under the Unsplash License."
+        text={titulo}
+        description={`${quantidade} Photos`}
+        className="gap-2"
       />
-      <ImagesCollection collectionTitle={collectionTitle} />
+      <ImagesCollection collection={collection} />
     </div>
   );
 }
