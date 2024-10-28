@@ -7,7 +7,7 @@ interface NaoPesquisadoProps {
   handleSearch: () => void;
 }
 
-export default function NaoPesquisado(props: NaoPesquisadoProps) {
+export default function Pesquisar(props: NaoPesquisadoProps) {
   return (
     <div className="flex flex-col items-center w-[500px] gap-5 mb-32">
       <div className="flex flex-col items-center gap-3">

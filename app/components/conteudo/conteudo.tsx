@@ -1,9 +1,9 @@
 "use client";
-import ConteudoLayout from "../layouts/conteudoLayout";
 import { useState } from "react";
-import NaoPesquisado from "./components/naoPesquisado";
-import getBgStyle from "@/app/utils/functions/getBgStyle";
 import { useRouterPush } from "@/app/utils/functions/useRouterPush";
+import ConteudoLayout from "../layouts/conteudoLayout";
+import getBgStyle from "@/app/utils/functions/getBgStyle";
+import Pesquisar from "./components/pesquisar";
 
 export default function Conteudo() {
   const [pesquisa, setPesquisa] = useState(false);
@@ -25,13 +25,11 @@ export default function Conteudo() {
     <ConteudoLayout
       className={`${getBgStyle(pesquisa)} flex items-center justify-center`}
     >
-      {!pesquisa && (
-        <NaoPesquisado
-          query={query}
-          handleInputChange={handleInputChange}
-          handleSearch={handleSearch}
-        />
-      )}
+      <Pesquisar
+        query={query}
+        handleInputChange={handleInputChange}
+        handleSearch={handleSearch}
+      />
     </ConteudoLayout>
   );
 }
