@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { collections } from "../../route";
 
 export async function POST(
   request: Request,
@@ -9,17 +8,10 @@ export async function POST(
   const body = await request.json();
   const { imageUrl } = body;
 
-  const collection = collections.find((col) => col.id === parseInt(id));
-
-  if (!collection) {
-    return NextResponse.json(
-      { message: "Collection not found" },
-      { status: 404 }
-    );
-  }
-
-  collection.images.push(imageUrl);
-  return NextResponse.json(collection);
+  return NextResponse.json(
+    { message: `Image ${imageUrl} added to collection with id ${id}` },
+    { status: 201 }
+  );
 }
 
 export async function DELETE(
@@ -30,15 +22,8 @@ export async function DELETE(
   const body = await request.json();
   const { imageUrl } = body;
 
-  const collection = collections.find((col) => col.id === parseInt(id));
-
-  if (!collection) {
-    return NextResponse.json(
-      { message: "Collection not found" },
-      { status: 404 }
-    );
-  }
-
-  collection.images = collection.images.filter((image) => image !== imageUrl);
-  return NextResponse.json(collection);
+  return NextResponse.json(
+    { message: `Image ${imageUrl} removed from collection with id ${id}` },
+    { status: 200 }
+  );
 }
