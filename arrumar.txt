@@ -1,0 +1,4 @@
+Poder adicionar coleções direto do add collection.
+Arrumar alguns loadings bugados.
+
+em breve
