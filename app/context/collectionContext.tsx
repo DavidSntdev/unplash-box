@@ -21,17 +21,26 @@ export const CollectionProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [collections, setCollections] = useState<unplashCollection[]>([]);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    const storedCollections = localStorage.getItem("imageCollections");
-    if (storedCollections) {
-      setCollections(JSON.parse(storedCollections));
-    }
+    setIsClient(true);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("imageCollections", JSON.stringify(collections));
-  }, [collections]);
+    if (isClient) {
+      const storedCollections = localStorage.getItem("imageCollections");
+      if (storedCollections) {
+        setCollections(JSON.parse(storedCollections));
+      }
+    }
+  }, [isClient]);
+
+  useEffect(() => {
+    if (isClient) {
+      localStorage.setItem("imageCollections", JSON.stringify(collections));
+    }
+  }, [collections, isClient]);
 
   const addCollection = (title: string) => {
     const normalizedTitle = title.trim().toLowerCase();
@@ -80,6 +89,8 @@ export const CollectionProvider: React.FC<{ children: React.ReactNode }> = ({
       })
     );
   };
+
+  if (!isClient) return null;
 
   return (
     <ImageCollectionContext.Provider
