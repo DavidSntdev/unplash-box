@@ -11,6 +11,7 @@ interface CollectionContextType {
     collectionId: number,
     image: UnsplashImage
   ) => void;
+  deleteCollection: (collectionId: number) => void;
 }
 
 const ImageCollectionContext = createContext<CollectionContextType | undefined>(
@@ -90,6 +91,12 @@ export const CollectionProvider: React.FC<{ children: React.ReactNode }> = ({
     );
   };
 
+  const deleteCollection = (collectionId: number) => {
+    setCollections((prev) =>
+      prev.filter((collection) => collection.id !== collectionId)
+    );
+  };
+
   if (!isClient) return null;
 
   return (
@@ -99,6 +106,7 @@ export const CollectionProvider: React.FC<{ children: React.ReactNode }> = ({
         addCollection,
         addImageToCollection,
         removeImageFromCollection,
+        deleteCollection,
       }}
     >
       {children}
