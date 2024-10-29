@@ -53,6 +53,14 @@ export default function ConteudoPesquisa(props: { query: string }) {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="loading-spinner"></div>
+      </div>
+    );
+  }
+
   return (
     <ConteudoLayout
       className={`${getBgStyle(true)} flex items-center justify-center`}
@@ -63,13 +71,7 @@ export default function ConteudoPesquisa(props: { query: string }) {
           handleInputChange={handleInputChange}
           handleSearch={handleSearch}
         />
-        {loading ? (
-          <div className="flex justify-center items-center">
-            <p className="text-black">Loading...</p>
-          </div>
-        ) : (
-          <ImagensPesquisa imagens={imagens} routerPush={routerPush} />
-        )}
+        <ImagensPesquisa imagens={imagens} routerPush={routerPush} />
       </div>
     </ConteudoLayout>
   );

@@ -8,8 +8,8 @@ export default function Imagem({ imageData }: { imageData: UnsplashImage }) {
   return (
     <div className="relative w-full sm:w-[600px] lg:w-1/2">
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-200 rounded-md">
-          <p>Loading...</p>
+        <div className="absolute inset-0 flex items-center justify-center rounded-md">
+          <div className="loading-spinner"></div>
         </div>
       )}
       <Image

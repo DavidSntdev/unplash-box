@@ -34,7 +34,7 @@ export default function ConteudoImage({ id }: { id: string }) {
   }, [id]);
 
   if (!imageData) {
-    return <div className="mx-auto">Carregando...</div>;
+    return <div className="loading-spinner"></div>;
   }
 
   return (
