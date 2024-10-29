@@ -2,7 +2,7 @@
 import { filterCollections } from "@/app/utils/functions/filterCollections";
 import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
 import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HeaderSAC from "./showCollection/header";
 import SearchSAC from "./showCollection/search";
 import CollectionsSAC from "./showCollection/collections";
@@ -29,9 +29,11 @@ export default function ShowCollection(props: ShowCollectionProps) {
       collection.title.toLowerCase().includes(pesquisa.toLowerCase())
   );
 
-  if (!hasFilteredCollectionOutside) {
-    props.setShowAddCollection(false);
-  }
+  useEffect(() => {
+    if (!hasFilteredCollectionOutside) {
+      props.setShowAddCollection(false);
+    }
+  }, [hasFilteredCollectionOutside, props]);
 
   return (
     hasFilteredCollectionOutside && (
