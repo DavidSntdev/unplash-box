@@ -16,7 +16,7 @@ export default function HeaderSAC({ setShowAddCollection }: props) {
         className={`${buttonStyle} rounded-xl p-3`}
         onClick={() => setShowAddCollection(false)}
       >
-        <Image src="/icons/Close.svg" alt="close" width={20} height={20} />
+        <Image src="/icons/close.svg" alt="close" width={20} height={20} />
       </Button>
     </div>
   );

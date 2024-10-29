@@ -27,7 +27,7 @@ export default function HeaderImage(props: HeaderImageProps) {
       </span>
       <div className="flex gap-2">
         <ButtonWithIcon
-          icon="/icons/Plus.svg"
+          icon="/icons/plus.svg"
           text="Add to collection"
           onClick={() => props.setShowAddCollection(true)}
         />
