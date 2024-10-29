@@ -1,3 +1,4 @@
+import { getStyleLoading } from "@/app/utils/functions/getStyleLoading";
 import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
 import Image from "next/image";
 import { useState } from "react";
@@ -17,9 +18,7 @@ export default function Imagem({ imageData }: { imageData: UnsplashImage }) {
         height={500}
         src={imageData.urls.full}
         alt={imageData.alt_description || ""}
-        className={`rounded-md shadow-lg ${
-          isLoading ? "invisible" : "visible"
-        }`}
+        className={`rounded-md shadow-lg ${getStyleLoading(isLoading)}`}
         onLoadingComplete={() => setIsLoading(false)}
       />
     </div>

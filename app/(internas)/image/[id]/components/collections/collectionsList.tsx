@@ -4,6 +4,7 @@ import { getInfosCollection } from "@/app/utils/functions/getInfosCollections";
 import { unplashCollection } from "@/app/utils/interfaces/unplashCollection";
 import Image from "next/image";
 import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
+import { getStyleLoading } from "@/app/utils/functions/getStyleLoading";
 
 type CollectionsType = {
   key: number;
@@ -18,6 +19,8 @@ export default function CollectionsList(props: CollectionsType) {
   const { imagens, quantidade, titulo, existeImagem } = getInfosCollection(
     props.collection
   );
+
+  const [isLoading, setIsLoading] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const hoverRemove = isHovered ? "block" : "hidden";
 
@@ -32,12 +35,20 @@ export default function CollectionsList(props: CollectionsType) {
       <div className="flex gap-4 items-center">
         {existeImagem && (
           <div className="w-16 h-16 overflow-hidden rounded-md shadow-md">
+            {isLoading && (
+              <div className="absolute inset-0 flex items-center justify-center rounded-md">
+                <div className="loading-spinner"></div>
+              </div>
+            )}
             <Image
               width={70}
               height={70}
               alt={titulo}
               src={imagens[0].urls.full}
-              className="object-cover w-full h-full"
+              className={` ${getStyleLoading(
+                isLoading
+              )} object-cover w-full h-full`}
+              onLoadingComplete={() => setIsLoading(false)}
             />
           </div>
         )}
