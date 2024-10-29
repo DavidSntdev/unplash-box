@@ -1,14 +1,27 @@
 import { UnsplashImage } from "@/app/utils/interfaces/unplashimage";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Imagem({ imageData }: { imageData: UnsplashImage }) {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
-    <Image
-      width={500}
-      height={500}
-      src={imageData.urls.full}
-      alt={imageData.alt_description || ""}
-      className="w-full sm:w-[600px] lg:w-1/2 rounded-md shadow-lg"
-    />
+    <div className="relative w-full sm:w-[600px] lg:w-1/2">
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-200 rounded-md">
+          <p>Loading...</p>
+        </div>
+      )}
+      <Image
+        width={500}
+        height={500}
+        src={imageData.urls.full}
+        alt={imageData.alt_description || ""}
+        className={`rounded-md shadow-lg ${
+          isLoading ? "invisible" : "visible"
+        }`}
+        onLoadingComplete={() => setIsLoading(false)}
+      />
+    </div>
   );
 }

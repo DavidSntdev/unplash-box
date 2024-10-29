@@ -12,8 +12,10 @@ export default function ConteudoPesquisa(props: { query: string }) {
   const routerPush = useRouterPush();
   const [query, setQuery] = useState(props.query || "");
   const [imagens, setImagens] = useState<UnsplashImage[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const searchUnsplash = async (query: string) => {
+    setLoading(true);
     try {
       const response = await axios.get(
         "https://api.unsplash.com/search/photos",
@@ -27,6 +29,8 @@ export default function ConteudoPesquisa(props: { query: string }) {
       setImagens(response.data.results);
     } catch (error) {
       console.error("Erro ao buscar imagens do Unsplash", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -59,7 +63,13 @@ export default function ConteudoPesquisa(props: { query: string }) {
           handleInputChange={handleInputChange}
           handleSearch={handleSearch}
         />
-        <ImagensPesquisa imagens={imagens} routerPush={routerPush} />
+        {loading ? (
+          <div className="flex justify-center items-center">
+            <p className="text-black">Loading...</p>
+          </div>
+        ) : (
+          <ImagensPesquisa imagens={imagens} routerPush={routerPush} />
+        )}
       </div>
     </ConteudoLayout>
   );
