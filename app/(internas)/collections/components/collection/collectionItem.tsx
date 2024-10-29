@@ -16,11 +16,11 @@ export default function CollectionItem({
   return (
     <div
       key={collectionId}
-      className="flex flex-col gap-3 mx-auto cursor-pointer"
+      className="flex flex-col gap-1 mx-auto cursor-pointer w-full max-w-[350px] "
       onClick={() => routerPush("/collections/", titulo)}
     >
       {existeImagem && (
-        <div className="w-[350px] h-[250px] overflow-hidden rounded-md shadow-md">
+        <div className="w-full max-w-[350px] h-[250px] overflow-hidden rounded-md shadow-md">
           <Image
             width={300}
             height={300}

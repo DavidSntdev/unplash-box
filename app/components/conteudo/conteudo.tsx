@@ -23,13 +23,17 @@ export default function Conteudo() {
 
   return (
     <ConteudoLayout
-      className={`${getBgStyle(pesquisa)} flex items-center justify-center`}
+      className={`${getBgStyle(
+        pesquisa
+      )} flex items-center justify-center px-3`}
     >
-      <Pesquisar
-        query={query}
-        handleInputChange={handleInputChange}
-        handleSearch={handleSearch}
-      />
+      {!pesquisa && (
+        <Pesquisar
+          query={query}
+          handleInputChange={handleInputChange}
+          handleSearch={handleSearch}
+        />
+      )}
     </ConteudoLayout>
   );
 }

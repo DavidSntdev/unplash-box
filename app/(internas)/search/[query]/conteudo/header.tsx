@@ -9,13 +9,13 @@ type HeaderPesquisaProps = {
 
 export default function HeaderPesquisa(props: HeaderPesquisaProps) {
   return (
-    <div className="relative w-full md:w-[600px] mx-auto">
+    <div className="relative w-full md:w-[600px] mx-auto px-5">
       <Input
         type="text"
         placeholder="Enter your keywords..."
         value={props.query}
         onChange={props.handleInputChange}
-        className="py-6 bg-white w-[85%] md:w-[600px] pr-12"
+        className="py-6 bg-white w-full md:w-[600px] pr-12"
       />
       <Image
         onClick={props.handleSearch}
@@ -23,7 +23,7 @@ export default function HeaderPesquisa(props: HeaderPesquisaProps) {
         alt="search"
         width={25}
         height={25}
-        className="absolute right-3 top-3 cursor-pointer"
+        className="absolute right-7 md:right-[-10px] top-3 cursor-pointer"
       />
     </div>
   );
