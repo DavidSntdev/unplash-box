@@ -26,7 +26,7 @@ export default function ImageCollections(props: ImageCollections) {
               collection={collection}
               imageId={props.imageId}
               text="Remove"
-              icone="/icons/Remove.svg"
+              icone="/icons/remove.svg"
               onClick={() =>
                 removeImageFromCollection(collection.id, props.imageId)
               }
