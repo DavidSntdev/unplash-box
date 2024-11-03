@@ -19,7 +19,7 @@ export default function CollectionsSAC(props: props) {
           collection={collection}
           text="Add to Collection"
           imageId={props.imageId}
-          icone="/icons/Plus.svg"
+          icone="/icons/plus.svg"
           onClick={() => addImageToCollection(collection.id, props.imageId)}
         />
       ))}
